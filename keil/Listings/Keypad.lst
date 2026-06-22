@@ -1,0 +1,65 @@
+C51 COMPILER V9.60.7.0   KEYPAD                                                            06/22/2026 22:58:24 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEYPAD
+OBJECT MODULE PLACED IN .\Objects\Keypad.obj
+COMPILER INVOKED BY: E:\Softwares\IDE\keil_v5\C51\BIN\C51.EXE ..\src\Keypad.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEN
+                    -D PRINT(.\Listings\Keypad.lst) TABS(2) OBJECT(.\Objects\Keypad.obj)
+
+line level    source
+
+   1          //
+   2          // Created by MeowWow520 on 2026/6/22.
+   3          //
+   4          
+   5          #include "reg51.h"
+   6          #include "Keypad.h"
+   7          
+   8          sbit ROW0 = P3 ^ 0;
+   9          sbit ROW1 = P3 ^ 1;
+  10          sbit ROW2 = P3 ^ 2;
+  11          sbit ROW3 = P3 ^ 3;      // 需要加这个引脚！
+  12          sbit COL0 = P3 ^ 4;
+  13          sbit COL1 = P3 ^ 5;
+  14          sbit COL2 = P3 ^ 6;
+  15          
+  16          uint8 Keypad_Read(void) {
+  17   1          static uint8 prev = KEY_NONE;
+  18   1          static uint8 cnt  = 0;
+  19   1          uint8 raw = KEY_NONE;
+  20   1      
+  21   1          // 1. 扫描 4 行
+  22   1          ROW0 = 0; if (COL1 == 0) raw = KEY_UP;    // Row0 Col1 → '2'
+  23   1          ROW0 = 1; ROW1 = 0;                        // Row1: 无使用按键
+  24   1          ROW1 = 1; ROW2 = 0; if (COL1 == 0) raw = KEY_DOWN;  // Row2 Col1 → '8'
+  25   1          ROW2 = 1; ROW3 = 0; if (COL2 == 0) raw = KEY_START; // Row3 Col2 → '#'
+  26   1          ROW3 = 1;
+  27   1      
+  28   1          // 2. 消抖 (连续 2 次读到相同值才确认)
+  29   1          if (raw == prev && raw != KEY_NONE) {
+  30   2              cnt++;
+  31   2              if (cnt == 2) {
+  32   3                  cnt = 0;
+  33   3                  prev = raw;
+  34   3                  return raw;
+  35   3              }
+  36   2          } else {
+  37   2              cnt = 0;
+  38   2          }
+  39   1          prev = raw;
+  40   1          return KEY_NONE;
+  41   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

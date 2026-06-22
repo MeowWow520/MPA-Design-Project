@@ -20,13 +20,8 @@ void Game_pos_up(Object* object);
 void Game_pos_down(Object* object);
 void Game_pos_left(Object* object);
 
-void Game_Init(void);
-void Game_update_player(uint8 key);
-void Game_update_enemies(void);
-
-Object Game_get_player(void);
-Object Game_get_enemy(uint8 index);
-uint8 Game_enemy_count(void);
+void Game_update_player(uint8 player_pos);
+void Game_update_enemies_pos(Object *object);
 
 void Game_place_char(char* buffer, char display_text, Object object);
 

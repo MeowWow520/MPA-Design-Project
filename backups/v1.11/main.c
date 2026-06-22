@@ -10,6 +10,14 @@
 #include "Delay.h"
 
 
+Object player = { 0x10 };
+Object enemies[4] = {
+    0x11,
+    0x15,
+    0x24,
+    0x37
+};
+
 bit flag_tick = 0;
 void Timer_Init(void);
 
@@ -17,13 +25,14 @@ void Timer_Init(void);
 void main(void) {
     Timer_Init();
     LCD_Init();
-    Game_Init();
     while (1) {
         uint8 key = Keypad_Read();
-        Game_update_player(key);
+        if (key == KEY_DOWN) Game_pos_down(&player);
+        if (key == KEY_UP)   Game_pos_up(&player);
+        if (key == KEY_START) {}
 
         if (flag_tick == 1) {
-            Game_update_enemies();
+            Game_update_enemies_pos(enemies);
             flag_tick = 0;
         }
 
@@ -33,11 +42,11 @@ void main(void) {
             for (line = 0; line < 4; line++) {
                 for (i = 0; i < 16; i++) line_buf[i] = ' ';
                 line_buf[16] = '\0';
-                if (Game_get_object_line(Game_get_player()) == line)
-                    Game_place_char(line_buf, 'p', Game_get_player());
-                for (i = 0; i < Game_enemy_count(); i++)
-                    if (Game_get_object_line(Game_get_enemy(i)) == line)
-                        Game_place_char(line_buf, 'e', Game_get_enemy(i));
+                if (Game_get_object_line(player) == line)
+                    Game_place_char(line_buf, 'p', player);
+                for (i = 0; i < 4; i++)
+                    if (Game_get_object_line(enemies[i]) == line)
+                        Game_place_char(line_buf, 'e', enemies[i]);
                 LCD_Display(line, line_buf);
             }
         }

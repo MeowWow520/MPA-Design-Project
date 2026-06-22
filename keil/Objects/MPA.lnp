@@ -1,4 +1,8 @@
 ".\Objects\STARTUP.obj",
-".\Objects\main.obj" 
+".\Objects\Game.obj",
+".\Objects\Keypad.obj",
+".\Objects\LCD.obj",
+".\Objects\main.obj",
+".\Objects\Delay.obj" 
 TO ".\Objects\MPA" 
 PRINT(".\Listings\MPA.m51") RAMSIZE(256) 
