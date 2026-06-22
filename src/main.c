@@ -2,77 +2,59 @@
 // Created by MeowWow520 on 2026/6/22.
 //
 
-#include <stdio.h>
-#include "REG52.H"
-#include "delay.h"
 
-#define OPEN  1
-#define CLOSE 0
+#include <reg51.h>
+#include "LCD.h"
+#include "Keypad.h"
+#include "Game.h"
+#include "Delay.h"
 
-sbit KEY_LEFT   = P2^0;
-sbit KEY_RIGHT  = P2^1;
-sbit KEY_START  = P2^2;
-sbit KEY_ROTATE = P2^3;
 
-size_t key_state = 4;
+typedef unsigned int size_t;
+typedef unsigned char uint8;
+// typedef unsigned short uint16;
 
-uint8 display_buffer[16] = {
-    0x00000000, //  up  line 1
-    0x00000000, //  up  line
-    0x00000000, //  up  line
-    0x00000000, //  up  line
-    0x00000000, //  up  line
-    0x00000000, //  up  line
-    0x00000000, //  up  line
-    0x00000000, //  up  line 8
-    0x00000000, // down line 1
-    0x00000000, // down line
-    0x00000000, // down line
-    0x00000000, // down line
-    0x00000000, // down line
-    0x00000000, // down line
-    0x00000000, // down line
-    0x00000000, // down line 8
-};
+Object player  = { 0x00000010 };
+Object enemies[4] = {
+    0x00000011,
+    0x00010101,
+    0x00100100,
+    0x00110111
+}
+void Timer_Init(void);
 
-void HandleEvents();
 
 void main(void) {
-    // init sth.
+    Timer_Init();
+    LCD_init();
     while (1) {
-        HandleEvents();
-        if (key_state == 4)
+        if (Keypad_Read() == KEY_DOWN) Game_pos_down(&player);
+        if (Keypad_Read() == KEY_UP) Game_pos_up(&player);
+        if (Keypad_Read() == KEY_START);
 
+        Game_update_player(player.pos);
+        Game_update_enemies_pos(&enemies);
     }
 }
 
-void HandleEvents() {
-    if(KEY_LEFT == 0) {
-        DelayMS(10);
-        if(KEY_LEFT == 0) {
-            while(KEY_LEFT == 0);
-            key_state = 0;
-        }
+// 游戏速度
+#define TICK_THRESHOLD 20
+
+void ISR_T0(void) interrupt 1 {
+    static uint8 tick_counter = 0;
+    TH0 = 0x3C;
+    TL0 = 0xB0;
+    tick_counter++;
+    if (tick_counter >= TICK_THRESHOLD) {
+        tick_counter = 0;
+        flag_tick = 1;
     }
-    if(KEY_RIGHT == 0) {
-        DelayMS(10);
-        if(KEY_RIGHT == 0) {
-            while(KEY_RIGHT == 0);
-            key_state = 1;
-        }
-    }
-    if(KEY_START == 0) {
-        DelayMS(10);
-        if(KEY_START == 0) {
-            while(KEY_START == 0);
-            key_state = 2;
-        }
-    }
-    if(KEY_ROTATE == 0) {
-        DelayMS(10);
-        if(KEY_ROTATE == 0) {
-            while(KEY_ROTATE == 0);
-            key_state = 3;
-        }
-    }
+}
+
+
+void Timer_Init(void) {
+    TMOD = 0x01;
+    TH0  = 0x3C;
+    TL0  = 0xB0;
+    ET0  = 1; TR0  = 1; EA   = 1;
 };
