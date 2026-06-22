@@ -4,8 +4,8 @@
 
 #include <stdio.h>
 #include "REG52.H"
-typedef unsigned char uint8;
-typedef unsigned int size_t;
+#include "delay.h"
+
 #define OPEN  1
 #define CLOSE 0
 
@@ -34,11 +34,18 @@ uint8 display_buffer[16] = {
     0x00000000, // down line
     0x00000000, // down line 8
 };
-void DelayMS(uint32 ms) {
-    int i, j;
-    for (i = 0; i < ms; i++)
-        for (j = 0; j < 120; j++);
-};
+
+void HandleEvents();
+
+void main(void) {
+    // init sth.
+    while (1) {
+        HandleEvents();
+        if (key_state == 4)
+
+    }
+}
+
 void HandleEvents() {
     if(KEY_LEFT == 0) {
         DelayMS(10);
@@ -69,12 +76,3 @@ void HandleEvents() {
         }
     }
 };
-
-void main(void) {
-    // init sth.
-    while (1) {
-        HandleEvents();
-        if (key_state == 4)
-
-    }
-}
