@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj" 
+TO ".\Objects\MPA" 
+PRINT(".\Listings\MPA.m51") RAMSIZE(256) 
