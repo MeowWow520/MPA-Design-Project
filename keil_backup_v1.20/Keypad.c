@@ -8,7 +8,7 @@
 sbit ROW0 = P3 ^ 0;
 sbit ROW1 = P3 ^ 1;
 sbit ROW2 = P3 ^ 2;
-sbit ROW3 = P3 ^ 3;
+sbit ROW3 = P3 ^ 3;      // 需要加这个引脚！
 sbit COL0 = P3 ^ 4;
 sbit COL1 = P3 ^ 5;
 sbit COL2 = P3 ^ 6;

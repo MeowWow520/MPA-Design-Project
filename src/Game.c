@@ -9,6 +9,8 @@
 
 static Object s_player;
 static Object s_enemies[ENEMY_COUNT];
+static bit    s_paused   = 0;
+static bit    s_gameover = 0;
 
 void Game_Init(void) {
     s_player.pos = 0x10;
@@ -16,6 +18,8 @@ void Game_Init(void) {
     s_enemies[1].pos = 0x15;
     s_enemies[2].pos = 0x24;
     s_enemies[3].pos = 0x37;
+    s_paused   = 0;
+    s_gameover = 0;
 }
 
 uint8 Game_get_object_line(Object object) {
@@ -42,16 +46,32 @@ void Game_pos_left(Object* object) {
 }
 
 void Game_update_player(uint8 key) {
+    if (key == KEY_START) {
+        if (s_gameover)
+            Game_Init();
+        else
+            s_paused = !s_paused;
+        return;
+    }
+    if (s_paused || s_gameover) return;
     if (key == KEY_UP)    Game_pos_up(&s_player);
     if (key == KEY_DOWN)  Game_pos_down(&s_player);
-    if (key == KEY_START) {}
 }
 
 void Game_update_enemies(void) {
     uint8 i;
-    for (i = 0; i < ENEMY_COUNT; i++)
+    if (s_paused || s_gameover) return;
+    for (i = 0; i < ENEMY_COUNT; i++) {
         Game_pos_left(&s_enemies[i]);
+        if (Game_get_object_column(s_enemies[i]) == 0
+            && Game_get_object_line(s_enemies[i]) == Game_get_object_line(s_player))
+            s_gameover = 1;
+    }
 }
+
+bit Game_is_paused(void)   { return s_paused; }
+
+bit Game_is_gameover(void) { return s_gameover; }
 
 Object Game_get_player(void) {
     return s_player;

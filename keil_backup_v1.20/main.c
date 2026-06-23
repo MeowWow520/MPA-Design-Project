@@ -33,24 +33,11 @@ void main(void) {
             for (line = 0; line < 4; line++) {
                 for (i = 0; i < 16; i++) line_buf[i] = ' ';
                 line_buf[16] = '\0';
-
-                if (Game_is_gameover()) {
-                    if (line == 1)      LCD_Display(1, "   GAME OVER!!  ");
-                    if (line == 2)      LCD_Display(2, " Press # restart");
-                    if (line == 3)      LCD_Display(3, "                ");
-                    continue;
-                }
-                if (Game_is_paused()) {
-                    if (line == 1)      LCD_Display(1, "     PAUSED     ");
-                    if (line == 2)      LCD_Display(2, "  Press # resume ");
-                    continue;
-                }
-
                 if (Game_get_object_line(Game_get_player()) == line)
-                    Game_place_char(line_buf, 'P', Game_get_player());
+                    Game_place_char(line_buf, 'p', Game_get_player());
                 for (i = 0; i < Game_enemy_count(); i++)
                     if (Game_get_object_line(Game_get_enemy(i)) == line)
-                        Game_place_char(line_buf, '*', Game_get_enemy(i));
+                        Game_place_char(line_buf, 'e', Game_get_enemy(i));
                 LCD_Display(line, line_buf);
             }
         }

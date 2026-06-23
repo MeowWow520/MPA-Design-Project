@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   GAME                                                              06/22/2026 23:02:12 PAGE 1   
+C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 09:54:03 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE GAME
@@ -19,77 +19,97 @@ line level    source
    9          
   10          static Object s_player;
   11          static Object s_enemies[ENEMY_COUNT];
-  12          
-  13          void Game_Init(void) {
-  14   1          s_player.pos = 0x10;
-  15   1          s_enemies[0].pos = 0x01;
-  16   1          s_enemies[1].pos = 0x15;
-  17   1          s_enemies[2].pos = 0x24;
-  18   1          s_enemies[3].pos = 0x37;
-  19   1      }
-  20          
-  21          uint8 Game_get_object_line(Object object) {
-  22   1          return (object.pos >> 4) & 0x03;
+  12          static bit    s_paused   = 0;
+  13          static bit    s_gameover = 0;
+  14          
+  15          void Game_Init(void) {
+  16   1          s_player.pos = 0x10;
+  17   1          s_enemies[0].pos = 0x01;
+  18   1          s_enemies[1].pos = 0x15;
+  19   1          s_enemies[2].pos = 0x24;
+  20   1          s_enemies[3].pos = 0x37;
+  21   1          s_paused   = 0;
+  22   1          s_gameover = 0;
   23   1      }
   24          
-  25          uint8 Game_get_object_column(Object object) {
-  26   1          return (object.pos & 0x0F);
+  25          uint8 Game_get_object_line(Object object) {
+  26   1          return (object.pos >> 4) & 0x03;
   27   1      }
   28          
-  29          void Game_pos_up(Object* object) {
-  30   1          if ((object->pos & 0x30) != 0x00)
-  31   1              object->pos -= 0x10;
-  32   1      }
-  33          
-  34          void Game_pos_down(Object* object) {
-  35   1          if ((object->pos & 0x30) != 0x30)
-  36   1              object->pos += 0x10;
-  37   1      }
-  38          
-  39          void Game_pos_left(Object* object) {
-  40   1          if ((object->pos & 0x0F) != 0x00)
-  41   1              object->pos--;
-  42   1      }
-  43          
-  44          void Game_update_player(uint8 key) {
-  45   1          if (key == KEY_UP)    Game_pos_up(&s_player);
-  46   1          if (key == KEY_DOWN)  Game_pos_down(&s_player);
-  47   1          if (key == KEY_START) {}
-  48   1      }
-  49          
-  50          void Game_update_enemies(void) {
-  51   1          uint8 i;
-  52   1          for (i = 0; i < ENEMY_COUNT; i++)
-  53   1              Game_pos_left(&s_enemies[i]);
-  54   1      }
-C51 COMPILER V9.60.7.0   GAME                                                              06/22/2026 23:02:12 PAGE 2   
+  29          uint8 Game_get_object_column(Object object) {
+  30   1          return (object.pos & 0x0F);
+  31   1      }
+  32          
+  33          void Game_pos_up(Object* object) {
+  34   1          if ((object->pos & 0x30) != 0x00)
+  35   1              object->pos -= 0x10;
+  36   1      }
+  37          
+  38          void Game_pos_down(Object* object) {
+  39   1          if ((object->pos & 0x30) != 0x30)
+  40   1              object->pos += 0x10;
+  41   1      }
+  42          
+  43          void Game_pos_left(Object* object) {
+  44   1          if ((object->pos & 0x0F) != 0x00)
+  45   1              object->pos--;
+  46   1      }
+  47          
+  48          void Game_update_player(uint8 key) {
+  49   1          if (key == KEY_START) {
+  50   2              if (s_gameover)
+  51   2                  Game_Init();
+  52   2              else
+  53   2                  s_paused = !s_paused;
+  54   2              return;
+C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 09:54:03 PAGE 2   
 
-  55          
-  56          Object Game_get_player(void) {
-  57   1          return s_player;
-  58   1      }
-  59          
-  60          Object Game_get_enemy(uint8 index) {
-  61   1          return s_enemies[index];
-  62   1      }
-  63          
-  64          uint8 Game_enemy_count(void) {
-  65   1          return ENEMY_COUNT;
-  66   1      }
-  67          
-  68          void Game_place_char(char* buffer, char display_text, Object object) {
-  69   1          buffer[Game_get_object_column(object)] = display_text;
+  55   2          }
+  56   1          if (s_paused || s_gameover) return;
+  57   1          if (key == KEY_UP)    Game_pos_up(&s_player);
+  58   1          if (key == KEY_DOWN)  Game_pos_down(&s_player);
+  59   1      }
+  60          
+  61          void Game_update_enemies(void) {
+  62   1          uint8 i;
+  63   1          if (s_paused || s_gameover) return;
+  64   1          for (i = 0; i < ENEMY_COUNT; i++) {
+  65   2              Game_pos_left(&s_enemies[i]);
+  66   2              if (Game_get_object_column(s_enemies[i]) == 0
+  67   2                  && Game_get_object_line(s_enemies[i]) == Game_get_object_line(s_player))
+  68   2                  s_gameover = 1;
+  69   2          }
   70   1      }
+  71          
+  72          bit Game_is_paused(void)   { return s_paused; }
+  73          
+  74          bit Game_is_gameover(void) { return s_gameover; }
+  75          
+  76          Object Game_get_player(void) {
+  77   1          return s_player;
+  78   1      }
+  79          
+  80          Object Game_get_enemy(uint8 index) {
+  81   1          return s_enemies[index];
+  82   1      }
+  83          
+  84          uint8 Game_enemy_count(void) {
+  85   1          return ENEMY_COUNT;
+  86   1      }
+  87          
+  88          void Game_place_char(char* buffer, char display_text, Object object) {
+  89   1          buffer[Game_get_object_column(object)] = display_text;
+  90   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    176    ----
+   CODE SIZE        =    296    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      5       7
+   DATA SIZE        =      5       8
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =   ----    ----
+   BIT SIZE         =      2    ----
 END OF MODULE INFORMATION.
 
 
