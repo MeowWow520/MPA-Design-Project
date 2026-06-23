@@ -35,19 +35,22 @@ void main(void) {
                 line_buf[16] = '\0';
 
                 if (Game_is_gameover()) {
+                    if (line == 0)      LCD_Display(0, "====--------====");
                     if (line == 1)      LCD_Display(1, "   GAME OVER!!  ");
                     if (line == 2)      LCD_Display(2, " Press # restart");
-                    if (line == 3)      LCD_Display(3, "                ");
+                    if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
                     continue;
                 }
                 if (Game_is_paused()) {
+                    if (line == 0)      LCD_Display(0, "====--------====");
                     if (line == 1)      LCD_Display(1, "     PAUSED     ");
-                    if (line == 2)      LCD_Display(2, "  Press # resume ");
+                    if (line == 2)      LCD_Display(2, "  Press # resume");
+                    if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
                     continue;
                 }
 
                 if (Game_get_object_line(Game_get_player()) == line)
-                    Game_place_char(line_buf, 'P', Game_get_player());
+                    Game_place_char(line_buf, 'Y', Game_get_player());
                 for (i = 0; i < Game_enemy_count(); i++)
                     if (Game_get_object_line(Game_get_enemy(i)) == line)
                         Game_place_char(line_buf, '*', Game_get_enemy(i));

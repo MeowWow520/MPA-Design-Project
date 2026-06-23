@@ -382,34 +382,9 @@
               <FilePath>.\STARTUP.A51</FilePath>
             </File>
             <File>
-              <FileName>Game.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\Game.c</FilePath>
-            </File>
-            <File>
-              <FileName>Keypad.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\Keypad.c</FilePath>
-            </File>
-            <File>
-              <FileName>LCD.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\LCD.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>Delay.h</FileName>
+              <FileName>LCD.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\src\Delay.h</FilePath>
-            </File>
-            <File>
-              <FileName>Game.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\src\Game.h</FilePath>
+              <FilePath>..\src\LCD.h</FilePath>
             </File>
             <File>
               <FileName>Keypad.h</FileName>
@@ -417,19 +392,44 @@
               <FilePath>..\src\Keypad.h</FilePath>
             </File>
             <File>
-              <FileName>LCD.h</FileName>
+              <FileName>Game.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\src\LCD.h</FilePath>
+              <FilePath>..\src\Game.h</FilePath>
+            </File>
+            <File>
+              <FileName>Delay.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\src\Delay.h</FilePath>
             </File>
             <File>
               <FileName>def.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\def.h</FilePath>
+              <FilePath>..\src\def.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\LCD.c</FilePath>
+            </File>
+            <File>
+              <FileName>Keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\Keypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>Game.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\Game.c</FilePath>
             </File>
             <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Delay.c</FilePath>
+              <FilePath>..\src\Delay.c</FilePath>
             </File>
           </Files>
         </Group>

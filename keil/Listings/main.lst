@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 10:08:03 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 14:41:36 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -45,56 +45,64 @@ line level    source
   35   4                      line_buf[16] = '\0';
   36   4      
   37   4                      if (Game_is_gameover()) {
-  38   5                          if (line == 1)      LCD_Display(1, "   GAME OVER!!  ");
-  39   5                          if (line == 2)      LCD_Display(2, " Press # restart");
-  40   5                          if (line == 3)      LCD_Display(3, "                ");
-  41   5                          continue;
-  42   5                      }
-  43   4                      if (Game_is_paused()) {
-  44   5                          if (line == 1)      LCD_Display(1, "     PAUSED     ");
-  45   5                          if (line == 2)      LCD_Display(2, "  Press # resume ");
-  46   5                          continue;
-  47   5                      }
-  48   4      
-  49   4                      if (Game_get_object_line(Game_get_player()) == line)
-  50   4                          Game_place_char(line_buf, 'P', Game_get_player());
-  51   4                      for (i = 0; i < Game_enemy_count(); i++)
-  52   4                          if (Game_get_object_line(Game_get_enemy(i)) == line)
-  53   4                              Game_place_char(line_buf, '*', Game_get_enemy(i));
-  54   4                      LCD_Display(line, line_buf);
-C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 10:08:03 PAGE 2   
+  38   5                          if (line == 0)      LCD_Display(0, "====--------====");
+  39   5                          if (line == 1)      LCD_Display(1, "   GAME OVER!!  ");
+  40   5                          if (line == 2)      LCD_Display(2, " Press # restart");
+  41   5                          if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
+  42   5                          continue;
+  43   5                      }
+  44   4                      if (Game_is_paused()) {
+  45   5                          if (line == 0)      LCD_Display(0, "====--------====");
+  46   5                          if (line == 1)      LCD_Display(1, "     PAUSED     ");
+  47   5                          if (line == 2)      LCD_Display(2, "  Press # resume");
+  48   5                          if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
+  49   5      
+  50   5                          continue;
+  51   5                      }
+  52   4      
+  53   4                      if (Game_get_object_line(Game_get_player()) == line)
+  54   4                          Game_place_char(line_buf, 'P', Game_get_player());
+C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 14:41:36 PAGE 2   
 
-  55   4                  }
-  56   3              }
-  57   2          }
-  58   1      }
-  59          
-  60          // 游戏速度
-  61          #define TICK_THRESHOLD 6
-  62          
-  63          void ISR_T0(void) interrupt 1 {
-  64   1          static uint8 tick_counter = 0;
-  65   1          TH0 = 0x3C;
-  66   1          TL0 = 0xB0;
-  67   1          tick_counter++;
-  68   1          if (tick_counter >= TICK_THRESHOLD) {
-  69   2              tick_counter = 0;
-  70   2              flag_tick = 1;
-  71   2          }
-  72   1      }
-  73          
-  74          
-  75          void Timer_Init(void) {
-  76   1          TMOD = 0x01;
-  77   1          TH0 = 0x3C;
-  78   1          TL0 = 0xB0;
-  79   1          ET0 = 1; TR0 = 1; EA = 1;
-  80   1      }
+  55   4                      for (i = 0; i < Game_enemy_count(); i++)
+  56   4                          if (Game_get_object_line(Game_get_enemy(i)) == line)
+  57   4                              Game_place_char(line_buf, '*', Game_get_enemy(i));
+  58   4                      LCD_Display(line, line_buf);
+  59   4                  }
+  60   3              }
+  61   2          }
+  62   1      }
+  63          
+  64          // 游戏速度
+  65          #define TICK_THRESHOLD 6
+  66          
+  67          void ISR_T0(void) interrupt 1 {
+  68   1          static uint8 tick_counter = 0;
+  69   1          TH0 = 0x3C;
+  70   1          TL0 = 0xB0;
+  71   1          tick_counter++;
+  72   1      
+  73   1          Keypad_Scan_ISR();
+*** WARNING C206 IN LINE 73 OF ..\src\main.c: 'Keypad_Scan_ISR': missing function-prototype
+  74   1      
+  75   1          if (tick_counter >= TICK_THRESHOLD) {
+  76   2              tick_counter = 0;
+  77   2              flag_tick = 1;
+  78   2          }
+  79   1      }
+  80          
+  81          
+  82          void Timer_Init(void) {
+  83   1          TMOD = 0x01;
+  84   1          TH0 = 0x3C;
+  85   1          TL0 = 0xB0;
+  86   1          ET0 = 1; TR0 = 1; EA = 1;
+  87   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    334    ----
-   CONSTANT SIZE    =     86    ----
+   CODE SIZE        =    419    ----
+   CONSTANT SIZE    =    102    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      1      20
@@ -103,4 +111,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

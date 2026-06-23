@@ -30,4 +30,7 @@ uint8 Game_enemy_count(void);
 
 void Game_place_char(char* buffer, char display_text, Object object);
 
+bit Game_is_paused(void);
+bit Game_is_gameover(void);
+
 #endif //MPA_DESIGN_PROJECT_GAME_H

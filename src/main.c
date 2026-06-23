@@ -35,14 +35,18 @@ void main(void) {
                 line_buf[16] = '\0';
 
                 if (Game_is_gameover()) {
+                    if (line == 0)      LCD_Display(0, "====--------====");
                     if (line == 1)      LCD_Display(1, "   GAME OVER!!  ");
                     if (line == 2)      LCD_Display(2, " Press # restart");
-                    if (line == 3)      LCD_Display(3, "                ");
+                    if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
                     continue;
                 }
                 if (Game_is_paused()) {
+                    if (line == 0)      LCD_Display(0, "====--------====");
                     if (line == 1)      LCD_Display(1, "     PAUSED     ");
-                    if (line == 2)      LCD_Display(2, "  Press # resume ");
+                    if (line == 2)      LCD_Display(2, "  Press # resume");
+                    if (line == 3)      LCD_Display(3, "~~~~~~~~~~~~~~~~");
+
                     continue;
                 }
 
@@ -65,6 +69,9 @@ void ISR_T0(void) interrupt 1 {
     TH0 = 0x3C;
     TL0 = 0xB0;
     tick_counter++;
+
+    Keypad_Scan_ISR();
+
     if (tick_counter >= TICK_THRESHOLD) {
         tick_counter = 0;
         flag_tick = 1;
