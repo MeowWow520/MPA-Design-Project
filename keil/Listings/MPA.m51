@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    06/23/2026  09:54:04  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    06/23/2026  10:22:53  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -49,32 +49,32 @@ LINK MAP OF MODULE:  .\Objects\MPA (?C_STARTUP)
             CODE    000EH     0180H     UNIT         ?C?LIB_CODE
             CODE    018EH     0121H     UNIT         ?PR?MAIN?MAIN
             CODE    02AFH     008CH     UNIT         ?C_C51STARTUP
-            CODE    033BH     006DH     UNIT         ?PR?GAME_UPDATE_ENEMIES?GAME
-            CODE    03A8H     0056H     UNIT         ?CO?MAIN
-            CODE    03FEH     004BH     UNIT         ?PR?_LCD_DISPLAY?LCD
-            CODE    0449H     003CH     UNIT         ?PR?KEYPAD_READ?KEYPAD
-            CODE    0485H     002EH     UNIT         ?PR?_GAME_PLACE_CHAR?GAME
-            CODE    04B3H     002BH     UNIT         ?PR?_GAME_UPDATE_PLAYER?GAME
-            CODE    04DEH     0020H     UNIT         ?PR?_DELAYMS?DELAY
-            CODE    04FEH     001DH     UNIT         ?PR?ISR_T0?MAIN
-            CODE    051BH     0014H     UNIT         ?PR?GAME_INIT?GAME
-            CODE    052FH     0014H     UNIT         ?PR?LCD_INIT?LCD
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 2
+            CODE    033BH     0076H     UNIT         ?PR?GAME_UPDATE_ENEMIES?GAME
+            CODE    03B1H     0056H     UNIT         ?CO?MAIN
+            CODE    0407H     004BH     UNIT         ?PR?_LCD_DISPLAY?LCD
+            CODE    0452H     003CH     UNIT         ?PR?KEYPAD_READ?KEYPAD
+            CODE    048EH     002BH     UNIT         ?PR?_GAME_UPDATE_PLAYER?GAME
+            CODE    04B9H     0020H     UNIT         ?PR?_DELAYMS?DELAY
+            CODE    04D9H     001FH     UNIT         ?PR?_GAME_PLACE_CHAR?GAME
+            CODE    04F8H     001DH     UNIT         ?PR?ISR_T0?MAIN
+            CODE    0515H     0015H     UNIT         ?PR?GAME_GET_OBJECT_COLUMN?GAME
+            CODE    052AH     0014H     UNIT         ?PR?GAME_INIT?GAME
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 2
 
 
-            CODE    0543H     0012H     UNIT         ?PR?_LCD_WRITEDATA?LCD
-            CODE    0555H     0012H     UNIT         ?PR?_LCD_WRITECMD?LCD
-            CODE    0567H     0010H     UNIT         ?C_INITSEG
-            CODE    0577H     0010H     UNIT         ?PR?TIMER_INIT?MAIN
-            CODE    0587H     000FH     UNIT         ?PR?_GAME_POS_DOWN?GAME
-            CODE    0596H     000DH     UNIT         ?PR?_GAME_POS_UP?GAME
-            CODE    05A3H     000DH     UNIT         ?PR?_GAME_POS_LEFT?GAME
-            CODE    05B0H     0007H     UNIT         ?PR?GAME_GET_OBJECT_LINE?GAME
-            CODE    05B7H     0007H     UNIT         ?PR?GAME_GET_PLAYER?GAME
-            CODE    05BEH     0006H     UNIT         ?PR?GAME_GET_OBJECT_COLUMN?GAME
-            CODE    05C4H     0003H     UNIT         ?PR?GAME_IS_PAUSED?GAME
-            CODE    05C7H     0003H     UNIT         ?PR?GAME_IS_GAMEOVER?GAME
-            CODE    05CAH     0003H     UNIT         ?PR?GAME_ENEMY_COUNT?GAME
+            CODE    053EH     0014H     UNIT         ?PR?LCD_INIT?LCD
+            CODE    0552H     0012H     UNIT         ?PR?_LCD_WRITEDATA?LCD
+            CODE    0564H     0012H     UNIT         ?PR?_LCD_WRITECMD?LCD
+            CODE    0576H     0010H     UNIT         ?C_INITSEG
+            CODE    0586H     0010H     UNIT         ?PR?TIMER_INIT?MAIN
+            CODE    0596H     000FH     UNIT         ?PR?_GAME_POS_DOWN?GAME
+            CODE    05A5H     000DH     UNIT         ?PR?_GAME_POS_UP?GAME
+            CODE    05B2H     000DH     UNIT         ?PR?_GAME_POS_LEFT?GAME
+            CODE    05BFH     0007H     UNIT         ?PR?GAME_GET_OBJECT_LINE?GAME
+            CODE    05C6H     0007H     UNIT         ?PR?GAME_GET_PLAYER?GAME
+            CODE    05CDH     0003H     UNIT         ?PR?GAME_IS_PAUSED?GAME
+            CODE    05D0H     0003H     UNIT         ?PR?GAME_IS_GAMEOVER?GAME
+            CODE    05D3H     0003H     UNIT         ?PR?GAME_ENEMY_COUNT?GAME
 
 
 
@@ -119,7 +119,7 @@ SEGMENT                                   DATA_GROUP
 ?PR?GAME_UPDATE_ENEMIES?GAME            0035H    0001H
   +--> ?PR?_GAME_POS_LEFT?GAME
   +--> ?PR?GAME_GET_OBJECT_COLUMN?GAME
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 3
 
 
   +--> ?PR?GAME_GET_OBJECT_LINE?GAME
@@ -179,88 +179,92 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   C:02B8H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 4
 
 
   -------         MODULE        GAME
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:05B0H         PUBLIC        Game_get_object_line
-  C:05CAH         PUBLIC        Game_enemy_count
-  C:05B7H         PUBLIC        Game_get_player
-  C:05C4H         PUBLIC        Game_is_paused
+  C:05BFH         PUBLIC        Game_get_object_line
+  C:05D3H         PUBLIC        Game_enemy_count
+  C:05C6H         PUBLIC        Game_get_player
+  C:05CDH         PUBLIC        Game_is_paused
   C:0003H         PUBLIC        _Game_get_enemy
   B:0020H.0       SYMBOL        s_gameover
   C:033BH         PUBLIC        Game_update_enemies
   D:0008H         SYMBOL        s_enemies
-  C:05A3H         PUBLIC        _Game_pos_left
-  C:0587H         PUBLIC        _Game_pos_down
-  C:04B3H         PUBLIC        _Game_update_player
+  C:05B2H         PUBLIC        _Game_pos_left
+  C:0596H         PUBLIC        _Game_pos_down
+  C:048EH         PUBLIC        _Game_update_player
   B:0020H.1       SYMBOL        s_paused
   D:000CH         SYMBOL        s_player
-  C:0485H         PUBLIC        _Game_place_char
-  C:05BEH         PUBLIC        Game_get_object_column
-  C:051BH         PUBLIC        Game_Init
-  C:05C7H         PUBLIC        Game_is_gameover
-  C:0596H         PUBLIC        _Game_pos_up
+  C:04D9H         PUBLIC        _Game_place_char
+  C:0524H         PUBLIC        Game_get_object_column
+  C:052AH         PUBLIC        Game_Init
+  C:05D0H         PUBLIC        Game_is_gameover
+  C:05A5H         PUBLIC        _Game_pos_up
   -------         PROC          GAME_INIT
-  C:051BH         LINE#         15
-  C:051BH         LINE#         16
-  C:051EH         LINE#         17
-  C:0521H         LINE#         18
-  C:0524H         LINE#         19
-  C:0527H         LINE#         20
-  C:052AH         LINE#         21
-  C:052CH         LINE#         22
-  C:052EH         LINE#         23
+  C:052AH         LINE#         15
+  C:052AH         LINE#         16
+  C:052DH         LINE#         17
+  C:0530H         LINE#         18
+  C:0533H         LINE#         19
+  C:0536H         LINE#         20
+  C:0539H         LINE#         21
+  C:053BH         LINE#         22
+  C:053DH         LINE#         23
   -------         ENDPROC       GAME_INIT
   -------         PROC          GAME_GET_OBJECT_LINE
   D:0036H         SYMBOL        object
-  C:05B0H         LINE#         25
-  C:05B0H         LINE#         26
-  C:05B6H         LINE#         27
+  C:05BFH         LINE#         25
+  C:05BFH         LINE#         26
+  C:05C5H         LINE#         27
   -------         ENDPROC       GAME_GET_OBJECT_LINE
+  C:051FH         SYMBOL        L?0032
+  -------         PROC          L?0031
+  -------         ENDPROC       L?0031
+  C:051FH         SYMBOL        L?0032
   -------         PROC          GAME_GET_OBJECT_COLUMN
   D:003AH         SYMBOL        object
-  C:05BEH         LINE#         29
-  C:05BEH         LINE#         30
-  C:05C3H         LINE#         31
+  C:0524H         LINE#         29
+  C:0524H         LINE#         30
+  C:0529H         LINE#         31
   -------         ENDPROC       GAME_GET_OBJECT_COLUMN
   -------         PROC          _GAME_POS_UP
   D:0001H         SYMBOL        object
-  C:0596H         LINE#         33
-  C:0596H         LINE#         34
-  C:059DH         LINE#         35
-  C:05A2H         LINE#         36
+  C:05A5H         LINE#         33
+  C:05A5H         LINE#         34
+  C:05ACH         LINE#         35
+  C:05B1H         LINE#         36
   -------         ENDPROC       _GAME_POS_UP
   -------         PROC          _GAME_POS_DOWN
   D:0001H         SYMBOL        object
-  C:0587H         LINE#         38
-  C:0587H         LINE#         39
-  C:0590H         LINE#         40
-  C:0595H         LINE#         41
+  C:0596H         LINE#         38
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 5
+
+
+  C:0596H         LINE#         39
+  C:059FH         LINE#         40
+  C:05A4H         LINE#         41
   -------         ENDPROC       _GAME_POS_DOWN
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 5
-
-
   -------         PROC          _GAME_POS_LEFT
   D:0001H         SYMBOL        object
-  C:05A3H         LINE#         43
-  C:05A3H         LINE#         44
-  C:05AAH         LINE#         45
-  C:05AFH         LINE#         46
+  C:05B2H         LINE#         43
+  C:05B2H         LINE#         44
+  C:05B9H         LINE#         45
+  C:05BEH         LINE#         46
   -------         ENDPROC       _GAME_POS_LEFT
   -------         PROC          _GAME_UPDATE_PLAYER
   D:0007H         SYMBOL        key
-  C:04B3H         LINE#         48
-  C:04B3H         LINE#         49
-  C:04B6H         LINE#         50
-  C:04B9H         LINE#         51
-  C:04BCH         LINE#         53
-  C:04BFH         LINE#         55
-  C:04BFH         LINE#         56
-  C:04C5H         LINE#         57
-  C:04D1H         LINE#         58
-  C:04DDH         LINE#         59
+  C:048EH         LINE#         48
+  C:048EH         LINE#         49
+  C:0491H         LINE#         50
+  C:0494H         LINE#         51
+  C:0497H         LINE#         53
+  C:049AH         LINE#         55
+  C:049AH         LINE#         56
+  C:04A0H         LINE#         57
+  C:04ACH         LINE#         58
+  C:04B8H         LINE#         59
   -------         ENDPROC       _GAME_UPDATE_PLAYER
   -------         PROC          GAME_UPDATE_ENEMIES
   -------         DO            
@@ -271,20 +275,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   C:0341H         LINE#         64
   C:0344H         LINE#         65
   C:034FH         LINE#         66
-  C:039CH         LINE#         68
-  C:039EH         LINE#         69
-  C:03A7H         LINE#         70
+  C:03A5H         LINE#         68
+  C:03A7H         LINE#         69
+  C:03B0H         LINE#         70
   -------         ENDPROC       GAME_UPDATE_ENEMIES
   -------         PROC          GAME_IS_PAUSED
-  C:05C4H         LINE#         72
+  C:05CDH         LINE#         72
   -------         ENDPROC       GAME_IS_PAUSED
   -------         PROC          GAME_IS_GAMEOVER
-  C:05C7H         LINE#         74
+  C:05D0H         LINE#         74
   -------         ENDPROC       GAME_IS_GAMEOVER
   -------         PROC          GAME_GET_PLAYER
-  C:05B7H         LINE#         76
-  C:05B7H         LINE#         77
-  C:05BDH         LINE#         78
+  C:05C6H         LINE#         76
+  C:05C6H         LINE#         77
+  C:05CCH         LINE#         78
   -------         ENDPROC       GAME_GET_PLAYER
   -------         PROC          _GAME_GET_ENEMY
   D:0007H         SYMBOL        index
@@ -293,19 +297,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   C:000AH         LINE#         82
   -------         ENDPROC       _GAME_GET_ENEMY
   -------         PROC          GAME_ENEMY_COUNT
-  C:05CAH         LINE#         84
-  C:05CAH         LINE#         85
-  C:05CCH         LINE#         86
+  C:05D3H         LINE#         84
+  C:05D3H         LINE#         85
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 6
+
+
+  C:05D5H         LINE#         86
   -------         ENDPROC       GAME_ENEMY_COUNT
   -------         PROC          _GAME_PLACE_CHAR
   D:0035H         SYMBOL        buffer
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 6
-
-
   D:0038H         SYMBOL        display_text
   D:0039H         SYMBOL        object
-  C:0485H         LINE#         88
-  C:048DH         LINE#         89
+  C:04D9H         LINE#         88
+  C:04E1H         LINE#         89
   -------         ENDPROC       _GAME_PLACE_CHAR
   -------         ENDMOD        GAME
 
@@ -318,33 +322,33 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   B:00B0H.1       PUBLIC        ROW1
   B:00B0H.2       PUBLIC        ROW2
   B:00B0H.3       PUBLIC        ROW3
-  C:0449H         PUBLIC        Keypad_Read
+  C:0452H         PUBLIC        Keypad_Read
   -------         PROC          KEYPAD_READ
   -------         DO            
   D:000DH         SYMBOL        prev
   D:000EH         SYMBOL        cnt
   D:0007H         SYMBOL        raw
   -------         ENDDO         
-  C:0449H         LINE#         16
-  C:0449H         LINE#         19
-  C:044BH         LINE#         22
-  C:0452H         LINE#         23
-  C:0456H         LINE#         24
-  C:045FH         LINE#         25
-  C:0468H         LINE#         26
-  C:046AH         LINE#         29
-  C:0470H         LINE#         30
-  C:0472H         LINE#         31
-  C:0477H         LINE#         32
-  C:047AH         LINE#         33
-  C:047CH         LINE#         34
-  C:047DH         LINE#         35
-  C:047DH         LINE#         36
-  C:047DH         LINE#         37
-  C:0480H         LINE#         38
-  C:0480H         LINE#         39
-  C:0482H         LINE#         40
-  C:0484H         LINE#         41
+  C:0452H         LINE#         16
+  C:0452H         LINE#         19
+  C:0454H         LINE#         22
+  C:045BH         LINE#         23
+  C:045FH         LINE#         24
+  C:0468H         LINE#         25
+  C:0471H         LINE#         26
+  C:0473H         LINE#         29
+  C:0479H         LINE#         30
+  C:047BH         LINE#         31
+  C:0480H         LINE#         32
+  C:0483H         LINE#         33
+  C:0485H         LINE#         34
+  C:0486H         LINE#         35
+  C:0486H         LINE#         36
+  C:0486H         LINE#         37
+  C:0489H         LINE#         38
+  C:0489H         LINE#         39
+  C:048BH         LINE#         40
+  C:048DH         LINE#         41
   -------         ENDPROC       KEYPAD_READ
   -------         ENDMOD        KEYPAD
 
@@ -352,44 +356,44 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-  C:03FEH         PUBLIC        _LCD_Display
-  C:0543H         PUBLIC        _LCD_WriteData
+  C:0407H         PUBLIC        _LCD_Display
+  C:0552H         PUBLIC        _LCD_WriteData
   B:0090H.2       PUBLIC        LCD_EN
-  C:052FH         PUBLIC        LCD_Init
-  C:0555H         PUBLIC        _LCD_WriteCmd
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 7
+
+
+  C:053EH         PUBLIC        LCD_Init
+  C:0564H         PUBLIC        _LCD_WriteCmd
   B:0090H.0       PUBLIC        LCD_RS
   B:0090H.1       PUBLIC        LCD_RW
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 7
-
-
   -------         PROC          LCD_INIT
-  C:052FH         LINE#         8
-  C:052FH         LINE#         9
-  C:0534H         LINE#         10
-  C:0539H         LINE#         11
-  C:053EH         LINE#         12
+  C:053EH         LINE#         8
+  C:053EH         LINE#         9
+  C:0543H         LINE#         10
+  C:0548H         LINE#         11
+  C:054DH         LINE#         12
   -------         ENDPROC       LCD_INIT
   -------         PROC          _LCD_WRITEDATA
   D:0007H         SYMBOL        dat
-  C:0543H         LINE#         15
-  C:0543H         LINE#         16
-  C:0545H         LINE#         17
-  C:0547H         LINE#         18
-  C:0549H         LINE#         19
-  C:054BH         LINE#         20
-  C:0552H         LINE#         21
-  C:0554H         LINE#         22
+  C:0552H         LINE#         15
+  C:0552H         LINE#         16
+  C:0554H         LINE#         17
+  C:0556H         LINE#         18
+  C:0558H         LINE#         19
+  C:055AH         LINE#         20
+  C:0561H         LINE#         21
+  C:0563H         LINE#         22
   -------         ENDPROC       _LCD_WRITEDATA
   -------         PROC          _LCD_WRITECMD
   D:0007H         SYMBOL        cmd
-  C:0555H         LINE#         24
-  C:0555H         LINE#         25
-  C:0557H         LINE#         26
-  C:0559H         LINE#         27
-  C:055BH         LINE#         28
-  C:055DH         LINE#         29
-  C:0564H         LINE#         30
-  C:0566H         LINE#         31
+  C:0564H         LINE#         24
+  C:0564H         LINE#         25
+  C:0566H         LINE#         26
+  C:0568H         LINE#         27
+  C:056AH         LINE#         28
+  C:056CH         LINE#         29
+  C:0573H         LINE#         30
+  C:0575H         LINE#         31
   -------         ENDPROC       _LCD_WRITECMD
   -------         PROC          _LCD_DISPLAY
   D:0007H         SYMBOL        line
@@ -398,38 +402,38 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   D:0038H         SYMBOL        i
   D:0039H         SYMBOL        addr
   -------         ENDDO         
-  C:03FEH         LINE#         33
-  C:0404H         LINE#         37
-  C:0412H         LINE#         38
-  C:0417H         LINE#         39
-  C:041CH         LINE#         40
-  C:0421H         LINE#         41
-  C:0424H         LINE#         42
-  C:0424H         LINE#         43
-  C:0424H         LINE#         45
-  C:0429H         LINE#         46
-  C:042CH         LINE#         47
-  C:043FH         LINE#         48
-  C:0448H         LINE#         49
+  C:0407H         LINE#         33
+  C:040DH         LINE#         37
+  C:041BH         LINE#         38
+  C:0420H         LINE#         39
+  C:0425H         LINE#         40
+  C:042AH         LINE#         41
+  C:042DH         LINE#         42
+  C:042DH         LINE#         43
+  C:042DH         LINE#         45
+  C:0432H         LINE#         46
+  C:0435H         LINE#         47
+  C:0448H         LINE#         48
+  C:0451H         LINE#         49
   -------         ENDPROC       _LCD_DISPLAY
   -------         ENDMOD        LCD
 
   -------         MODULE        MAIN
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 8
+
+
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0090H         PUBLIC        P1
   B:00A8H.7       PUBLIC        EA
   C:018EH         PUBLIC        main
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 8
-
-
   B:0020H.2       PUBLIC        flag_tick
   D:0089H         PUBLIC        TMOD
   B:00A8H.1       PUBLIC        ET0
   D:008CH         PUBLIC        TH0
   D:008AH         PUBLIC        TL0
-  C:04FEH         PUBLIC        ISR_T0
+  C:04F8H         PUBLIC        ISR_T0
   B:0088H.4       PUBLIC        TR0
-  C:0577H         PUBLIC        Timer_Init
+  C:0586H         PUBLIC        Timer_Init
   -------         PROC          MAIN
   -------         DO            
   D:0021H         SYMBOL        key
@@ -475,44 +479,44 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   -------         ENDPROC       MAIN
   -------         PROC          ISR_T0
   -------         DO            
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 9
+
+
   D:000FH         SYMBOL        tick_counter
   -------         ENDDO         
-  C:04FEH         LINE#         63
-  C:0502H         LINE#         65
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  09:54:04  PAGE 9
-
-
-  C:0505H         LINE#         66
-  C:0508H         LINE#         67
-  C:050AH         LINE#         68
-  C:0511H         LINE#         69
-  C:0514H         LINE#         70
-  C:0516H         LINE#         71
-  C:0516H         LINE#         72
+  C:04F8H         LINE#         63
+  C:04FCH         LINE#         65
+  C:04FFH         LINE#         66
+  C:0502H         LINE#         67
+  C:0504H         LINE#         68
+  C:050BH         LINE#         69
+  C:050EH         LINE#         70
+  C:0510H         LINE#         71
+  C:0510H         LINE#         72
   -------         ENDPROC       ISR_T0
   -------         PROC          TIMER_INIT
-  C:0577H         LINE#         75
-  C:0577H         LINE#         76
-  C:057AH         LINE#         77
-  C:057DH         LINE#         78
-  C:0580H         LINE#         79
-  C:0586H         LINE#         80
+  C:0586H         LINE#         75
+  C:0586H         LINE#         76
+  C:0589H         LINE#         77
+  C:058CH         LINE#         78
+  C:058FH         LINE#         79
+  C:0595H         LINE#         80
   -------         ENDPROC       TIMER_INIT
   -------         ENDMOD        MAIN
 
   -------         MODULE        DELAY
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:04DEH         PUBLIC        _DelayMS
+  C:04B9H         PUBLIC        _DelayMS
   -------         PROC          _DELAYMS
   D:0006H         SYMBOL        ms
   -------         DO            
   D:0004H         SYMBOL        i
   D:0002H         SYMBOL        j
   -------         ENDDO         
-  C:04DEH         LINE#         6
-  C:04DEH         LINE#         8
-  C:04E8H         LINE#         9
-  C:04FDH         LINE#         10
+  C:04B9H         LINE#         6
+  C:04B9H         LINE#         8
+  C:04C3H         LINE#         9
+  C:04D8H         LINE#         10
   -------         ENDPROC       _DELAYMS
   -------         ENDMOD        DELAY
 
@@ -535,6 +539,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\MPA (?C_STARTUP)
   -------         MODULE        ?C?CSTOPTR
   C:016CH         PUBLIC        ?C?CSTOPTR
   -------         ENDMOD        ?C?CSTOPTR
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/23/2026  10:22:53  PAGE 10
 
-Program Size: data=43.3 xdata=0 code=1485
+
+
+Program Size: data=43.3 xdata=0 code=1494
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

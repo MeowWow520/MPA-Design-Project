@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 09:54:03 PAGE 1   
+C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 10:08:03 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE GAME
@@ -24,10 +24,10 @@ line level    source
   14          
   15          void Game_Init(void) {
   16   1          s_player.pos = 0x10;
-  17   1          s_enemies[0].pos = 0x01;
-  18   1          s_enemies[1].pos = 0x15;
-  19   1          s_enemies[2].pos = 0x24;
-  20   1          s_enemies[3].pos = 0x37;
+  17   1          s_enemies[0].pos = 0x0f;
+  18   1          s_enemies[1].pos = 0x1c;
+  19   1          s_enemies[2].pos = 0x2b;
+  20   1          s_enemies[3].pos = 0x39;
   21   1          s_paused   = 0;
   22   1          s_gameover = 0;
   23   1      }
@@ -62,7 +62,7 @@ line level    source
   52   2              else
   53   2                  s_paused = !s_paused;
   54   2              return;
-C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 09:54:03 PAGE 2   
+C51 COMPILER V9.60.7.0   GAME                                                              06/23/2026 10:08:03 PAGE 2   
 
   55   2          }
   56   1          if (s_paused || s_gameover) return;
@@ -75,7 +75,7 @@ line level    source
   63   1          if (s_paused || s_gameover) return;
   64   1          for (i = 0; i < ENEMY_COUNT; i++) {
   65   2              Game_pos_left(&s_enemies[i]);
-  66   2              if (Game_get_object_column(s_enemies[i]) == 0
+  66   2              if (Game_get_object_column(s_enemies[i]) == Game_get_object_column(s_player)
   67   2                  && Game_get_object_line(s_enemies[i]) == Game_get_object_line(s_player))
   68   2                  s_gameover = 1;
   69   2          }
@@ -103,7 +103,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    296    ----
+   CODE SIZE        =    305    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

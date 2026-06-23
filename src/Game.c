@@ -14,10 +14,10 @@ static bit    s_gameover = 0;
 
 void Game_Init(void) {
     s_player.pos = 0x10;
-    s_enemies[0].pos = 0x01;
-    s_enemies[1].pos = 0x15;
-    s_enemies[2].pos = 0x24;
-    s_enemies[3].pos = 0x37;
+    s_enemies[0].pos = 0x0f;
+    s_enemies[1].pos = 0x1c;
+    s_enemies[2].pos = 0x2b;
+    s_enemies[3].pos = 0x39;
     s_paused   = 0;
     s_gameover = 0;
 }
@@ -63,7 +63,7 @@ void Game_update_enemies(void) {
     if (s_paused || s_gameover) return;
     for (i = 0; i < ENEMY_COUNT; i++) {
         Game_pos_left(&s_enemies[i]);
-        if (Game_get_object_column(s_enemies[i]) == 0
+        if (Game_get_object_column(s_enemies[i]) == Game_get_object_column(s_player)
             && Game_get_object_line(s_enemies[i]) == Game_get_object_line(s_player))
             s_gameover = 1;
     }
