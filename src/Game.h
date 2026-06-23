@@ -10,8 +10,8 @@
 
 typedef struct {
     uint8 pos;
-    // 0x0010 0100
-    //   LINE COL
+    // 0b0LLCCCCC
+    //   LINE COL (0-31)
 } Object;
 
 uint8 Game_get_object_line(Object object);
@@ -19,6 +19,7 @@ uint8 Game_get_object_column(Object object);
 void Game_pos_up(Object* object);
 void Game_pos_down(Object* object);
 void Game_pos_left(Object* object);
+void Game_try_respawn(uint8 index);
 
 void Game_Init(void);
 void Game_update_player(uint8 key);

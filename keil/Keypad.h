@@ -14,10 +14,7 @@
 #define KEY_START  12
 
 
-
 uint8 Keypad_Read(void);
+void  Keypad_Scan_ISR(void);
 
 #endif //MPA_DESIGN_PROJECT_KEYPAD_H
-
-
-

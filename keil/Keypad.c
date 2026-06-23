@@ -5,37 +5,39 @@
 #include "reg51.h"
 #include "Keypad.h"
 
-sbit ROW0 = P3 ^ 0;
-sbit ROW1 = P3 ^ 1;
-sbit ROW2 = P3 ^ 2;
-sbit ROW3 = P3 ^ 3;      // 需要加这个引脚！
-sbit COL0 = P3 ^ 4;
-sbit COL1 = P3 ^ 5;
-sbit COL2 = P3 ^ 6;
+sbit KEY_UP_PIN    = P3 ^ 0;
+sbit KEY_DOWN_PIN  = P3 ^ 1;
+sbit KEY_START_PIN = P3 ^ 2;
 
-uint8 Keypad_Read(void) {
-    static uint8 prev = KEY_NONE;
-    static uint8 cnt  = 0;
+volatile uint8 g_key = KEY_NONE;
+
+void Keypad_Scan_ISR(void) {
+    static uint8 samples[2] = {KEY_NONE, KEY_NONE};
+    static uint8 idx = 0;
+    static uint8 last_reported = KEY_NONE;
     uint8 raw = KEY_NONE;
 
-    // 1. 扫描 4 行
-    ROW0 = 0; if (COL1 == 0) raw = KEY_UP;    // Row0 Col1 → '2'
-    ROW0 = 1; ROW1 = 0;                        // Row1: 无使用按键
-    ROW1 = 1; ROW2 = 0; if (COL1 == 0) raw = KEY_DOWN;  // Row2 Col1 → '8'
-    ROW2 = 1; ROW3 = 0; if (COL2 == 0) raw = KEY_START; // Row3 Col2 → '#'
-    ROW3 = 1;
+    if      (KEY_START_PIN == 0) raw = KEY_START;
+    else if (KEY_UP_PIN    == 0) raw = KEY_UP;
+    else if (KEY_DOWN_PIN  == 0) raw = KEY_DOWN;
 
-    // 2. 消抖 (连续 2 次读到相同值才确认)
-    if (raw == prev && raw != KEY_NONE) {
-        cnt++;
-        if (cnt == 2) {
-            cnt = 0;
-            prev = raw;
-            return raw;
+    samples[idx] = raw;
+    idx ^= 1;
+
+    if (samples[0] == samples[1]) {
+        if (samples[0] != KEY_NONE) {
+            if (samples[0] != last_reported) {
+                g_key = samples[0];
+                last_reported = samples[0];
+            }
+        } else {
+            last_reported = KEY_NONE;
         }
-    } else {
-        cnt = 0;
     }
-    prev = raw;
-    return KEY_NONE;
+}
+
+uint8 Keypad_Read(void) {
+    uint8 key = g_key;
+    g_key = KEY_NONE;
+    return key;
 }

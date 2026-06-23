@@ -13,12 +13,12 @@ void LCD_Init(void) {
 }
 
 void LCD_WriteData(uint8 dat) {
-        LCD_RS = 1;          // 写数据
-        LCD_RW = 0;          // 写模式
-        LCD_PORT = dat;         // 放数据到总线
-        LCD_EN = 1;          // 使能拉高
-        DelayMS(10);          // 等 LCD 处理
-        LCD_EN = 0;          // 下降沿锁存
+        LCD_RS = 1;
+        LCD_RW = 0;
+        LCD_PORT = dat;
+        LCD_EN = 1;
+        DelayMS(10);
+        LCD_EN = 0;
 }
 
 void LCD_WriteCmd(uint8 cmd) {
