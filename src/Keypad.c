@@ -8,6 +8,8 @@
 sbit KEY_UP_PIN    = P3 ^ 0;
 sbit KEY_DOWN_PIN  = P3 ^ 1;
 sbit KEY_START_PIN = P3 ^ 2;
+sbit KEY_LEFT_PIN  = P3 ^ 4;
+sbit KEY_RIGHT_PIN = P3 ^ 5;
 
 volatile uint8 g_key = KEY_NONE;
 
@@ -20,6 +22,8 @@ void Keypad_Scan_ISR(void) {
     if      (KEY_START_PIN == 0) raw = KEY_START;
     else if (KEY_UP_PIN    == 0) raw = KEY_UP;
     else if (KEY_DOWN_PIN  == 0) raw = KEY_DOWN;
+    else if (KEY_LEFT_PIN  == 0) raw = KEY_LEFT;
+    else if (KEY_RIGHT_PIN == 0) raw = KEY_RIGHT;
 
     samples[idx] = raw;
     idx ^= 1;

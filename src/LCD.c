@@ -13,12 +13,12 @@ void LCD_Init(void) {
 }
 
 void LCD_WriteData(uint8 dat) {
-        LCD_RS = 1;
-        LCD_RW = 0;
-        LCD_PORT = dat;
-        LCD_EN = 1;
-        DelayMS(10);
-        LCD_EN = 0;
+		LCD_RS = 1;
+		LCD_RW = 0;
+		LCD_PORT = dat;
+		LCD_EN = 1;
+		DelayMS(1);
+		LCD_EN = 0;
 }
 
 void LCD_WriteCmd(uint8 cmd) {
@@ -26,7 +26,7 @@ void LCD_WriteCmd(uint8 cmd) {
     LCD_RW = 0;
     LCD_PORT = cmd;
     LCD_EN = 1;
-    DelayMS(10);
+    DelayMS(1);
     LCD_EN = 0;
 }
 

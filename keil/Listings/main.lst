@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 15:47:04 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              06/24/2026 08:29:41 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   2      
   53   2              if (screen_dirty) {
   54   3                  uint8 line, i;
-C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 15:47:04 PAGE 2   
+C51 COMPILER V9.60.7.0   MAIN                                                              06/24/2026 08:29:41 PAGE 2   
 
   55   3                  char  line_buf[17];
   56   3      
@@ -126,7 +126,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V9.60.7.0   MAIN                                                              06/23/2026 15:47:04 PAGE 3   
+C51 COMPILER V9.60.7.0   MAIN                                                              06/24/2026 08:29:41 PAGE 3   
 
    CODE SIZE        =    545    ----
    CONSTANT SIZE    =     85    ----

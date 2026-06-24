@@ -82,8 +82,13 @@ void Game_pos_down(Object* object) {
 }
 
 void Game_pos_left(Object* object) {
-    if ((object->pos & 0x1F) >= 2)
-        object->pos -= 2;
+    if ((object->pos & 0x1F) != 0x00)
+        object->pos--;
+}
+
+void Game_pos_right(Object* object) {
+    if ((object->pos & 0x1F) < 15)
+        object->pos++;
 }
 
 void Game_update_player(uint8 key) {
@@ -97,6 +102,8 @@ void Game_update_player(uint8 key) {
     if (s_paused || s_gameover) return;
     if (key == KEY_UP)    Game_pos_up(&s_player);
     if (key == KEY_DOWN)  Game_pos_down(&s_player);
+    if (key == KEY_LEFT)  Game_pos_left(&s_player);
+    if (key == KEY_RIGHT) Game_pos_right(&s_player);
 }
 
 void Game_update_enemies(void) {
@@ -104,8 +111,8 @@ void Game_update_enemies(void) {
     if (s_paused || s_gameover) return;
     for (i = 0; i < ENEMY_COUNT; i++) {
         uint8 col = s_enemies[i].pos & 0x1F;
-        if (col >= 2) {
-            s_enemies[i].pos -= 2;
+        if (col > 0) {
+            s_enemies[i].pos--;
         } else {
             Game_try_respawn(i);
         }

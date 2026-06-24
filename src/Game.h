@@ -19,6 +19,7 @@ uint8 Game_get_object_column(Object object);
 void Game_pos_up(Object* object);
 void Game_pos_down(Object* object);
 void Game_pos_left(Object* object);
+void Game_pos_right(Object* object);
 void Game_try_respawn(uint8 index);
 
 void Game_Init(void);

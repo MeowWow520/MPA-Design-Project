@@ -95,8 +95,8 @@ void main(void) {
 
 void ISR_T0(void) interrupt 1 {
     static uint8 tick_counter = 0;
-    TH0 = 0xD8;
-    TL0 = 0xF0;
+    TH0 = 0x3C;
+    TL0 = 0xB0;
     tick_counter++;
     Keypad_Scan_ISR();
     if (tick_counter >= TICK_THRESHOLD) {

@@ -12,6 +12,8 @@
 #define KEY_UP     2
 #define KEY_DOWN   8
 #define KEY_START  12
+#define KEY_LEFT   4
+#define KEY_RIGHT  6
 
 
 uint8 Keypad_Read(void);
