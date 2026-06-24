@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   LCD                                                               06/24/2026 08:39:33 PAGE 1   
+C51 COMPILER V9.60.7.0   LCD                                                               06/24/2026 09:12:28 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LCD
@@ -62,7 +62,7 @@ line level    source
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =    131    ----
    CONSTANT SIZE    =   ----    ----
-C51 COMPILER V9.60.7.0   LCD                                                               06/24/2026 08:39:33 PAGE 2   
+C51 COMPILER V9.60.7.0   LCD                                                               06/24/2026 09:12:28 PAGE 2   
 
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

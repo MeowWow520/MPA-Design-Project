@@ -12,11 +12,19 @@ static Object s_enemies[ENEMY_COUNT];
 static bit    s_paused   = 0;
 static bit    s_gameover = 0;
 
-static uint8 s_seed = 0xA5;
+// #define USING_ANOTHER_SEED
+
+#ifdef USING_ANOTHER_SEED
+static uint8 lfsr = 0xAA;
+#else
+static uint8 lfsr = 0x55;
+#endif
 
 static uint8 random(void) {
-    s_seed = s_seed * 109 + 89;
-    return s_seed;
+    uint8 lsb = lfsr & 1;
+    lfsr >>= 1;
+    if (lsb) lfsr ^= 0xB8;
+    return lfsr;
 }
 
 static bit is_position_valid(uint8 line, uint8 col, uint8 exclude) {

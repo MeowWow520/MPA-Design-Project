@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 08:29:41 PAGE 1   
+C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 09:23:44 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE GAME
@@ -22,144 +22,151 @@ line level    source
   12          static bit    s_paused   = 0;
   13          static bit    s_gameover = 0;
   14          
-  15          static uint8 s_seed = 0xA5;
-  16          
-  17          static uint8 random(void) {
-  18   1          s_seed = s_seed * 109 + 89;
-  19   1          return s_seed;
-  20   1      }
+  15          
+  16          #ifdef USING_ANOTHER_SEED
+              static uint8 lfsr = 0xAA;
+              #else
+  19          static uint8 lfsr = 0x55;
+  20          #endif
   21          
-  22          static bit is_position_valid(uint8 line, uint8 col, uint8 exclude) {
-  23   1          uint8 i;
-  24   1          uint8 other_line;
-  25   1          uint8 other_col;
-  26   1          uint8 line_diff;
-  27   1          uint8 col_diff;
-  28   1          for (i = 0; i < ENEMY_COUNT; i++) {
-  29   2              if (i == exclude) continue;
-  30   2              other_line = s_enemies[i].pos >> 5;
-  31   2              other_col  = s_enemies[i].pos & 0x1F;
-  32   2              line_diff = (line > other_line) ? (line - other_line)
-  33   2                                              : (other_line - line);
-  34   2              if (line_diff == 1) {
-  35   3                  col_diff = (col > other_col) ? (col - other_col)
-  36   3                                               : (other_col - col);
-  37   3                  if (col_diff < 3) return 0;
-  38   3              }
-  39   2          }
-  40   1          return 1;
-  41   1      }
-  42          
-  43          void Game_try_respawn(uint8 index) {
-  44   1          uint8 line = random() & 0x03;
-  45   1          uint8 col  = 16 + (random() & 0x0F);
-  46   1          if (is_position_valid(line, col, index)) {
-  47   2              s_enemies[index].pos = (line << 5) | col;
-  48   2          }
-  49   1      }
-  50          
-  51          void Game_Init(void) {
-  52   1          uint8 i;
-  53   1          s_player.pos = 0x20;
-  54   1          for (i = 0; i < ENEMY_COUNT; i++) {
-C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 08:29:41 PAGE 2   
+  22          static uint8 random(void) {
+  23   1          uint8 lsb = lfsr & 1;
+  24   1          lfsr >>= 1;
+  25   1          if (lsb) lfsr ^= 0xB8;
+  26   1          return lfsr;
+  27   1      }
+  28          
+  29          static bit is_position_valid(uint8 line, uint8 col, uint8 exclude) {
+  30   1          uint8 i;
+  31   1          uint8 other_line;
+  32   1          uint8 other_col;
+  33   1          uint8 line_diff;
+  34   1          uint8 col_diff;
+  35   1          for (i = 0; i < ENEMY_COUNT; i++) {
+  36   2              if (i == exclude) continue;
+  37   2              other_line = s_enemies[i].pos >> 5;
+  38   2              other_col  = s_enemies[i].pos & 0x1F;
+  39   2              line_diff = (line > other_line) ? (line - other_line)
+  40   2                                              : (other_line - line);
+  41   2              if (line_diff == 1) {
+  42   3                  col_diff = (col > other_col) ? (col - other_col)
+  43   3                                               : (other_col - col);
+  44   3                  if (col_diff < 3) return 0;
+  45   3              }
+  46   2          }
+  47   1          return 1;
+  48   1      }
+  49          
+  50          void Game_try_respawn(uint8 index) {
+  51   1          uint8 line = random() & 0x03;
+  52   1          uint8 col  = 16 + (random() & 0x0F);
+  53   1          if (is_position_valid(line, col, index)) {
+  54   2              s_enemies[index].pos = (line << 5) | col;
+C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 09:23:44 PAGE 2   
 
-  55   2              uint8 line, col;
-  56   2              do {
-  57   3                  line = random() & 0x03;
-  58   3                  col  = 16 + (random() & 0x0F);
-  59   3              } while (!is_position_valid(line, col, i));
-  60   2              s_enemies[i].pos = (line << 5) | col;
-  61   2          }
-  62   1          s_paused   = 0;
-  63   1          s_gameover = 0;
-  64   1      }
-  65          
-  66          uint8 Game_get_object_line(Object object) {
-  67   1          return object.pos >> 5;
-  68   1      }
-  69          
-  70          uint8 Game_get_object_column(Object object) {
-  71   1          return object.pos & 0x1F;
-  72   1      }
-  73          
-  74          void Game_pos_up(Object* object) {
-  75   1          if ((object->pos & 0x60) != 0x00)
-  76   1              object->pos -= 0x20;
-  77   1      }
-  78          
-  79          void Game_pos_down(Object* object) {
-  80   1          if ((object->pos & 0x60) != 0x60)
-  81   1              object->pos += 0x20;
-  82   1      }
-  83          
-  84          void Game_pos_left(Object* object) {
-  85   1          if ((object->pos & 0x1F) != 0x00)
-  86   1              object->pos--;
-  87   1      }
-  88          
-  89          void Game_pos_right(Object* object) {
-  90   1          if ((object->pos & 0x1F) < 15)
-  91   1              object->pos++;
-  92   1      }
-  93          
-  94          void Game_update_player(uint8 key) {
-  95   1          if (key == KEY_START) {
-  96   2              if (s_gameover)
-  97   2                  Game_Init();
-  98   2              else
-  99   2                  s_paused = !s_paused;
- 100   2              return;
- 101   2          }
- 102   1          if (s_paused || s_gameover) return;
- 103   1          if (key == KEY_UP)    Game_pos_up(&s_player);
- 104   1          if (key == KEY_DOWN)  Game_pos_down(&s_player);
- 105   1          if (key == KEY_LEFT)  Game_pos_left(&s_player);
- 106   1          if (key == KEY_RIGHT) Game_pos_right(&s_player);
- 107   1      }
- 108          
- 109          void Game_update_enemies(void) {
- 110   1          uint8 i;
- 111   1          if (s_paused || s_gameover) return;
- 112   1          for (i = 0; i < ENEMY_COUNT; i++) {
- 113   2              uint8 col = s_enemies[i].pos & 0x1F;
- 114   2              if (col > 0) {
- 115   3                  s_enemies[i].pos--;
- 116   3              } else {
-C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 08:29:41 PAGE 3   
+  55   2          }
+  56   1      }
+  57          
+  58          void Game_Init(void) {
+  59   1          uint8 i;
+  60   1          s_player.pos = 0x20;
+  61   1          for (i = 0; i < ENEMY_COUNT; i++) {
+  62   2              uint8 line, col;
+  63   2              do {
+  64   3                  line = random() & 0x03;
+  65   3                  col  = 16 + (random() & 0x0F);
+  66   3              } while (!is_position_valid(line, col, i));
+  67   2              s_enemies[i].pos = (line << 5) | col;
+  68   2          }
+  69   1          s_paused   = 0;
+  70   1          s_gameover = 0;
+  71   1      }
+  72          
+  73          uint8 Game_get_object_line(Object object) {
+  74   1          return object.pos >> 5;
+  75   1      }
+  76          
+  77          uint8 Game_get_object_column(Object object) {
+  78   1          return object.pos & 0x1F;
+  79   1      }
+  80          
+  81          void Game_pos_up(Object* object) {
+  82   1          if ((object->pos & 0x60) != 0x00)
+  83   1              object->pos -= 0x20;
+  84   1      }
+  85          
+  86          void Game_pos_down(Object* object) {
+  87   1          if ((object->pos & 0x60) != 0x60)
+  88   1              object->pos += 0x20;
+  89   1      }
+  90          
+  91          void Game_pos_left(Object* object) {
+  92   1          if ((object->pos & 0x1F) != 0x00)
+  93   1              object->pos--;
+  94   1      }
+  95          
+  96          void Game_pos_right(Object* object) {
+  97   1          if ((object->pos & 0x1F) < 15)
+  98   1              object->pos++;
+  99   1      }
+ 100          
+ 101          void Game_update_player(uint8 key) {
+ 102   1          if (key == KEY_START) {
+ 103   2              if (s_gameover)
+ 104   2                  Game_Init();
+ 105   2              else
+ 106   2                  s_paused = !s_paused;
+ 107   2              return;
+ 108   2          }
+ 109   1          if (s_paused || s_gameover) return;
+ 110   1          if (key == KEY_UP)    Game_pos_up(&s_player);
+ 111   1          if (key == KEY_DOWN)  Game_pos_down(&s_player);
+ 112   1          if (key == KEY_LEFT)  Game_pos_left(&s_player);
+ 113   1          if (key == KEY_RIGHT) Game_pos_right(&s_player);
+ 114   1      }
+ 115          
+ 116          void Game_update_enemies(void) {
+C51 COMPILER V9.60.7.0   GAME                                                              06/24/2026 09:23:44 PAGE 3   
 
- 117   3                  Game_try_respawn(i);
- 118   3              }
- 119   2              if ((s_enemies[i].pos & 0x1F) == (s_player.pos & 0x1F)
- 120   2                  && (s_enemies[i].pos >> 5) == (s_player.pos >> 5))
- 121   2                  s_gameover = 1;
- 122   2          }
- 123   1      }
- 124          
- 125          bit Game_is_paused(void)   { return s_paused; }
- 126          
- 127          bit Game_is_gameover(void) { return s_gameover; }
- 128          
- 129          Object Game_get_player(void) {
- 130   1          return s_player;
- 131   1      }
- 132          
- 133          Object Game_get_enemy(uint8 index) {
- 134   1          return s_enemies[index];
- 135   1      }
- 136          
- 137          uint8 Game_enemy_count(void) {
- 138   1          return ENEMY_COUNT;
- 139   1      }
- 140          
- 141          void Game_place_char(char* buffer, char display_text, Object object) {
- 142   1          uint8 col = Game_get_object_column(object);
- 143   1          if (col < 16) buffer[col] = display_text;
- 144   1      }
+ 117   1          uint8 i;
+ 118   1          if (s_paused || s_gameover) return;
+ 119   1          for (i = 0; i < ENEMY_COUNT; i++) {
+ 120   2              uint8 col = s_enemies[i].pos & 0x1F;
+ 121   2              if (col > 0) {
+ 122   3                  s_enemies[i].pos--;
+ 123   3              } else {
+ 124   3                  Game_try_respawn(i);
+ 125   3              }
+ 126   2              if ((s_enemies[i].pos & 0x1F) == (s_player.pos & 0x1F)
+ 127   2                  && (s_enemies[i].pos >> 5) == (s_player.pos >> 5))
+ 128   2                  s_gameover = 1;
+ 129   2          }
+ 130   1      }
+ 131          
+ 132          bit Game_is_paused(void)   { return s_paused; }
+ 133          
+ 134          bit Game_is_gameover(void) { return s_gameover; }
+ 135          
+ 136          Object Game_get_player(void) {
+ 137   1          return s_player;
+ 138   1      }
+ 139          
+ 140          Object Game_get_enemy(uint8 index) {
+ 141   1          return s_enemies[index];
+ 142   1      }
+ 143          
+ 144          uint8 Game_enemy_count(void) {
+ 145   1          return ENEMY_COUNT;
+ 146   1      }
+ 147          
+ 148          void Game_place_char(char* buffer, char display_text, Object object) {
+ 149   1          uint8 col = Game_get_object_column(object);
+ 150   1          if (col < 16) buffer[col] = display_text;
+ 151   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    486    ----
+   CODE SIZE        =    494    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   KEYPAD                                                            06/24/2026 08:29:41 PAGE 1   
+C51 COMPILER V9.60.7.0   KEYPAD                                                            06/24/2026 09:23:44 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEYPAD
@@ -62,7 +62,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-C51 COMPILER V9.60.7.0   KEYPAD                                                            06/24/2026 08:29:41 PAGE 2   
+C51 COMPILER V9.60.7.0   KEYPAD                                                            06/24/2026 09:23:44 PAGE 2   
 
    DATA SIZE        =      5    ----
    IDATA SIZE       =   ----    ----

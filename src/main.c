@@ -9,9 +9,11 @@
 #include "Game.h"
 #include "Delay.h"
 
+#define USING_ANOTHER_SEED
 
-bit flag_tick    = 0;
-bit screen_dirty  = 1;
+
+bit flag_tick = 0;
+bit screen_dirty = 1;
 void Timer_Init(void);
 
 

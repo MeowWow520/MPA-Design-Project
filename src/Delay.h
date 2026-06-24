@@ -7,6 +7,10 @@
 
 #include "def.h"
 
+/**
+ * DelayMS 产生延时的函数，无返回值，
+ * @param ms 延时时间
+ */
 void DelayMS(size_t ms);
 
 
